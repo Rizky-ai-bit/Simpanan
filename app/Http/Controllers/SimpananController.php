@@ -68,11 +68,10 @@ class SimpananController extends Controller
         return redirect()->route('simpan.index')->with('sukses', 'Data berhasil diupdate!');
     }
 
-    public function delete($hashed_id)
-    {
+    public function delete($hashed_id){
         $ids = $this->hashids->decode($hashed_id);
 
-        if (empty($ids)) {
+        if (empty($ids)){
             abort(404);
         }
 

@@ -86,8 +86,9 @@ class TransaksiController extends Controller
 
         $id = $ids[0];
         $simpanan = Simpanan::with('transaksi')->findOrFail($id);
+        $totalSimpanan = $simpanan->transaksi->sum('setoran');
         $simpanan->hashed_id = $hashed_id;
-        return view('simpanan.pdf', ['simpanan' => $simpanan]);
+        return view('simpanan.pdf', compact('simpanan', 'totalSimpanan'));
     }
 
     public function delete($hashed_id){
@@ -96,6 +97,7 @@ class TransaksiController extends Controller
     if (empty($ids)) {
         abort(404);
     }
+    
 
     $id = $ids[0];
     

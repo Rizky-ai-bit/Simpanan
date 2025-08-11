@@ -81,7 +81,7 @@
             <div class="container">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h3 class="card-title text-center mb-0 flex-grow-1">Daftar Simpanan</h3>
+                        <h3 class="card-title text-center mb-0 flex-grow-1">Daftar Tabungan</h3>
                         <button class="btn btn-outline-primary" style="border-radius: 50%; font-size: 20px;"
                             data-bs-toggle="modal" data-bs-target="#addModal"><i class="bi bi-plus"></i></button>
                     </div>
@@ -126,6 +126,9 @@
                                         </td>
                                     </tr>
                                 @empty
+                                    <tr>
+                                        <td colspan="6" class="text-center">Tidak ada data tabungan.</td>
+                                    </tr>
                                 @endforelse
                             </tbody>
                         </table>
@@ -186,7 +189,7 @@
                         @method('PUT')
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="editModalLabel">Edit Data Barang</h5>
+                                <h5 class="modal-title" id="editModalLabel">Edit Tabungan</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
@@ -194,19 +197,19 @@
 
                                 <input type="hidden" name="id" id="edit_id">
 
-                                <div class="mb-3">
+                                <div class="form-group">
                                     <label for="edit_nama" class="form-label">Nama</label>
                                     <input type="text" name="nama" id="edit_nama" class="form-control"
                                         placeholder="Input nama lengkap" required>
                                 </div>
 
-                                <div class="mb-3">
+                                <div class="form-group">
                                     <label for="edit_nomor_anggota" class="form-label">Nomor Anggota</label>
                                     <input type="text" name="nomor_anggota" id="edit_nomor_anggota"
                                         class="form-control" placeholder="Input nomor anggota" required>
                                 </div>
 
-                                <div class="row g-2 mb-3">
+                                <div class="row g-2">
                                     <div class="col">
                                         <label for="edit_unit" class="form-label">Unit</label>
                                         <input type="text" name="unit" id="edit_unit" class="form-control"
@@ -278,7 +281,7 @@
 
                 $('#formEdit').attr('action', `/simpanan/${hashedId}`);
 
-                $('#edit_id').val(hashedId); 
+                $('#edit_id').val(hashedId);
                 $('#edit_nama').val(nama);
                 $('#edit_nomor_anggota').val(nomorAnggota);
                 $('#edit_unit').val(unit);

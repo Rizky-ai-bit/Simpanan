@@ -58,7 +58,7 @@
             <div class="container">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h3 class="card-title text-center mb-0 flex-grow-1">Detail Simpanan</h3>
+                        <h3 class="card-title text-center mb-0 flex-grow-1">Daftar Simpanan</h3>
                         <button class="btn btn-outline-primary" style="border-radius: 50%; font-size: 20px;"
                             data-bs-toggle="modal" data-bs-target="#addModal"><i class="bi bi-plus"></i></button>
                     </div>
@@ -81,10 +81,12 @@
                                         <td>{{ 'Rp. ' . number_format($t->setoran, 0, ',', '.') }}</td>
                                         <td>{{ $t->tgl }}</td>
                                         <td class="d-flex gap-1 justify-content-center align-items-center">
-                                            <button class="btn btn-info btn-sm btn-edit" data-bs-toggle="modal"
-                                                data-bs-target="#editModal" data-id="{{ $t->hashed_id }}"
+                                            <button class="btn btn-info btn-sm edit-btn" data-bs-toggle="modal"
+                                                data-bs-target="#editModal" 
+                                                data-id="{{ $t->hashed_id }}"
                                                 data-jenis-simpanan="{{ $t->jenis_simpanan }}"
-                                                data-setoran="{{ $t->setoran }}" data-tgl="{{ $t->tgl }}">
+                                                data-setoran="{{ $t->setoran }}" 
+                                                data-tanggal="{{ $t->tanggal }}">
                                                 <i class="bi bi-pen"></i>
                                             </button>
                                             <form class="deleteform"
@@ -140,21 +142,20 @@
                                     <div class="row g-2">
                                         <div class="col mb-0">
                                             <label for="jenis_simpanan">Jenis Simpanan</label>
-                                            <input type="text" name="jenis_simpanan"
-                                                value="{{ old('jenis_simpanan') }}" class="form-control"
-                                                placeholder="Jenis Simpanan" required>
+                                            <input type="text" name="jenis_simpanan" value=""
+                                                class="form-control" placeholder="Jenis Simpanan" required>
                                         </div>
                                     </div>
                                     <div class="row g-2">
                                         <div class="col mb-0">
                                             <label for="tanggal">Tanggal</label>
-                                            <input type="date" name="tgl" value="{{ old('tgl') }}"
-                                                class="form-control" required>
+                                            <input type="date" name="tgl" value="" class="form-control"
+                                                required>
                                         </div>
                                         <div class="col mb-0">
-                                            <label for="tgl"> Jumlah Setoran</label>
-                                            <input type="number" name="setoran" value="{{ old('setoran') }}"
-                                                class="form-control" placeholder=" Edit Jumlah Setoran" required>
+                                            <label for="unit">Jumlah Setoran</label>
+                                            <input type="number" name="setoran" value="" class="form-control"
+                                                placeholder="Jumlah setoran" required>
                                         </div>
                                     </div>
                                 </div>
@@ -176,7 +177,7 @@
                             @method('PUT')
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="editModalLabel">Edit Detail Simpanan</h5>
+                                    <h5 class="modal-title" id="editModalLabel">Edit Simpanan</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
@@ -184,37 +185,36 @@
 
                                     <input type="hidden" name="id" id="edit_id">
 
-                                    <div class="mb-3">
+                                    <div class="form-group">
                                         <label for="edit_jenis_simpanan" class="form-label">Jenis Simpanan</label>
                                         <input type="text" name="jenis_simpanan" id="edit_jenis_simpanan"
-                                            class="form-control" placeholder="Edit Jenis Simpanan" required>
+                                            class="form-control" placeholder="Input Jenis simpanan" required>
                                     </div>
 
-                                    <div class="row g-2 mb-3">
+                                    <div class="row g-2 ">
                                         <div class="col">
-                                            <label for="edit_tgl" class="form-label">Tanggal</label>
-                                            <input type="date" name="tgl" id="edit_tgl" class="form-control"
-                                                required>
-                                        </div>
 
+                                            <label for="edit_setoran" class="form-label">Jumlah Setor</label>
+                                            <input type="text" name="setoran" id="edit_setoran"
+                                                class="form-control" placeholder="Input Jumlah Simpanan" required>
+                                        </div>
                                         <div class="col">
-                                            <label for="edit_jumlah_setoran" class="form-label">Jumlah Setoran</label>
-                                            <input type="number" name="setoran" id="edit_jumlah_setoran"
-                                                class="form-control" placeholder="Edit Jumlah Setoran" required>
+                                            <label for="edit_tanggal" class="form-label">Tanggal</label>
+                                            <input type="date" name="tanggal" id="edit_tanggal"
+                                                class="form-control" placeholder="Input Jumlah setoran" required>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success">Simpan</button>
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Batal</button>
+                                </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-success">Simpan</button>
-                                <button type="button" class="btn btn-secondary"
-                                    data-bs-dismiss="modal">Batal</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                        </form>
+                    </div>
 
-            </div>
+                </div>
         </section>
         </div>
 
@@ -250,50 +250,30 @@
     <script src="{{ asset('assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.0/dist/sweetalert2.all.min.js"></script>
 
-    <!-- Main JS File -->
+    <!-- Main JS File -->           
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script>
         $(document).ready(function() {
             $(document).on('click', '.btn-edit', function() {
-                const hashedId = $(this).data('id');
-                const jenisSimpanan = $(this).data('jenis-simpanan');
-                const tgl = $(this).data('tgl');
-                const setoran = $(this).data('setoran');
+                const hashedId      = $(this).data('id');
+                const jeniSimpanan  = $(this).data('jenis-simpanan');
+                const jumlahSetor   = $(this).data('setoran');
+                const tanggal       = $(this).data('tanggal');
 
-                $('#formEdit').attr('action', `/simpanan/${hashedId}`);
+                $('#formEdit').attr('action', '');
 
                 $('#edit_id').val(hashedId);
-                $('#edit_jenis_simpanan').val(jenisSimpanan);
-                $('#edit_tgl').val(tgl);
-                $('#edit_jumlah_setoran').val(setoran);
+                $('#edit_jenis_simpanan').val(jeniSimpanan);
+                $('#edit_setoran').val(jumlahSetor);
+                $('#tanggal').val(tanggal);
 
-                $('#editModal').modal('show');
-            });
-
-            const deleteForms = document.querySelectorAll('.deleteform');
-            deleteForms.forEach(form => {
-                form.addEventListener('submit', function(event) {
-                    event.preventDefault();
-
-                    Swal.fire({
-                        title: "Apa kamu yakin?",
-                        text: "Data ini akan dihapus secara permanen!!",
-                        icon: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#3085d6",
-                        cancelButtonColor: "#d33",
-                        confirmButtonText: "Ya, saya yakin!"
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            this.submit();
-                        }
-                    });
-                });
+                $('#modal').modal('show');
             });
         });
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Select the table by its ID (you added id="myDataTable" above)
             new simpleDatatables.DataTable("#myDataTable");
         });
     </script>
