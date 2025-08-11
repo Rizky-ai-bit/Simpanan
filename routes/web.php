@@ -10,7 +10,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 
 Route::middleware(['authmiddleware'])->group(function () {
-
+ 
     Route::get('/simpanan', [App\Http\Controllers\SimpananController::class, 'index'])->name('simpan.index');
     Route::post('/simpanan/create', [App\Http\Controllers\SimpananController::class, 'create_simpanan'])->name('create_simpanan');
     Route::put('/simpanan/{id}', [SimpananController::class, 'update'])->name('simpanan.update');
