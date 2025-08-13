@@ -214,7 +214,7 @@
         <div class="header">
             <div class="logo-section">
                 <div>
-                    <div class="title">Detail Simpanan</div>
+                    <div class="title">Daftar Simpanan</div>
                 </div>
             </div>
         </div>

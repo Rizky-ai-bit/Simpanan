@@ -106,20 +106,36 @@
                         </table>
                         <div class="justify-content-between d-flex align-items-center mb-3">
                             <a href="{{ route('simpan.index') }}" type="button" class="btn btn-secondary">Kembali</a>
-                            <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="d-flex flex-column gap- justify-content-between align-self-center mb-3">
+                                <h7>Simpana pokok:
+                                    <span class="text-success fw-bold">
+                                        {{ 'Rp. ' . number_format($totalSetoran, 0, ',', '.') }}
+                                    </span>
+                                </h7>
+                                <h7>Simpanan wajib:
+                                    <span class="text-success fw-bold">
+                                        {{ 'Rp. ' . number_format($totalSetoran, 0, ',', '.') }}
+                                    </span>
+                                </h7>
+                                <h7>Simpanan sukarela :
+                                    <span class="text-success fw-bold">
+                                        {{ 'Rp. ' . number_format($totalSetoran, 0, ',', '.') }}
+                                    </span>
+                                </h7>
                                 <h7>Total Simpanan:
                                     <span class="text-success fw-bold">
                                         {{ 'Rp. ' . number_format($totalSetoran, 0, ',', '.') }}
                                     </span>
                                 </h7>
+                                <div class="d-flex">
+                                    <a href="{{ route('transaksi.pdf', ['hashed_id' => $simpanan->hashed_id]) }}"
+                                        class="btn btn-success btn-sm ms-auto">
+                                        <i class="bi bi-filetype-pdf"></i> PDF
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                        <div class="d-flex">
-                            <a href="{{ route('transaksi.pdf', ['hashed_id' => $simpanan->hashed_id]) }}"
-                                class="btn btn-success btn-sm ms-auto">
-                                <i class="bi bi-filetype-pdf"></i> PDF
-                            </a>
-                        </div>
+
                     </div>
                 </div>
 
