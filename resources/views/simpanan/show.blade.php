@@ -104,32 +104,34 @@
                                 @endforelse
                             </tbody>
                         </table>
-                        <div class="justify-content-between d-flex align-items-center mb-3">
+                        <div class="d-flex justify-content-between align-items-end mb-3">
                             <a href="{{ route('simpan.index') }}" type="button" class="btn btn-secondary">Kembali</a>
-                            <div class="d-flex flex-column gap- justify-content-between align-self-center mb-3">
-                                <h7>Simpana pokok:
+
+                            <div class="d-flex flex-column gap-1 align-items-end">
+                                <h7>Simpanan Pokok
                                     <span class="text-success fw-bold">
-                                        {{ 'Rp. ' . number_format($totalSetoran, 0, ',', '.') }}
+                                        : {{ 'Rp. ' . number_format($totalSetoran, 0, ',', '.') }}
                                     </span>
                                 </h7>
-                                <h7>Simpanan wajib:
+                                <h7>Simpanan Wajib
                                     <span class="text-success fw-bold">
-                                        {{ 'Rp. ' . number_format($totalSetoran, 0, ',', '.') }}
+                                        : {{ 'Rp. ' . number_format($totalSetoran, 0, ',', '.') }}
                                     </span>
                                 </h7>
-                                <h7>Simpanan sukarela :
+                                <h7>Simpanan Sukarela
                                     <span class="text-success fw-bold">
-                                        {{ 'Rp. ' . number_format($totalSetoran, 0, ',', '.') }}
+                                        : {{ 'Rp. ' . number_format($totalSetoran, 0, ',', '.') }}
                                     </span>
                                 </h7>
-                                <h7>Total Simpanan:
+                                <h7>Total Simpanan
                                     <span class="text-success fw-bold">
-                                        {{ 'Rp. ' . number_format($totalSetoran, 0, ',', '.') }}
+                                        : {{ 'Rp. ' . number_format($totalSetoran, 0, ',', '.') }}
                                     </span>
                                 </h7>
-                                <div class="d-flex">
+
+                                <div class="d-flex mt-2">
                                     <a href="{{ route('transaksi.pdf', ['hashed_id' => $simpanan->hashed_id]) }}"
-                                        class="btn btn-success btn-sm ms-auto">
+                                        class="btn btn-success btn-sm">
                                         <i class="bi bi-filetype-pdf"></i> PDF
                                     </a>
                                 </div>
@@ -153,12 +155,15 @@
                                 </div>
                                 <input type="hidden" name="id_simpanan">
                                 <div class="modal-body">
-                                    <div class="row g-2">
-                                        <div class="col mb-0">
-                                            <label for="jenis_simpanan">Jenis Simpanan</label>
-                                            <input type="text" name="jenis_simpanan" class="form-control"
-                                                placeholder="Jenis Simpanan" required>
-                                        </div>
+                                    <input type="hidden" name="" value="">
+                                    <div class="form-group mb-2">
+                                        <label>Jenis Simpanan</label>
+                                        <select name="" class="form-select" required>
+                                            <option value="" selected disabled>Pilih Simpanan</option>
+                                            <option>Simpanan Sukarela</option>
+                                            <option>Simpanan Wajib</option>
+                                            <option>Simpanan Pokok</option>
+                                        </select>
                                     </div>
                                     <div class="row g-2">
                                         <div class="col mb-0">
@@ -272,7 +277,7 @@
                 const setoran = $(this).data('setoran');
                 const tanggal = $(this).data('tanggal');
 
-                $('#formEdit').attr('action', `/transaksi/update/${hashedId}`);
+                $('#formEdit').attr('action', /transaksi/update/${hashedId});
 
                 $('#edit_id').val(hashedId);
                 $('#edit_jenis_simpanan').val(jenisSimpanan);
