@@ -19,7 +19,7 @@ class TransaksiController extends Controller
     public function show($hashed_id)
     {
         $ids = $this->hashids->decode($hashed_id);
-       
+
 
         if (empty($ids)) {
             abort(404);
@@ -82,7 +82,7 @@ class TransaksiController extends Controller
             abort(404);
         }
 
-        
+
 
         $id = $ids[0];
         $simpanan = Simpanan::with('transaksi')->findOrFail($id);
@@ -91,28 +91,45 @@ class TransaksiController extends Controller
         return view('simpanan.pdf', compact('simpanan', 'totalSimpanan'));
     }
 
-    public function delete($hashed_id){
-    $ids = $this->hashids->decode($hashed_id);
+    public function update(Request $request, $hashed_id){
+        $ids = $this->hashids->decode($hashed_id);
 
-    if (empty($ids)) {
-        abort(404);
+        if (empty($ids)){
+            abort(404);
+        }
+
+        $id = $ids[0];
+
+        $transaksi = Transaksi::findOrFail($id);
+        
+        $transaksi->update($request->all());
+
+        return redirect()->route('show.detail', ['hashed_id'  => $this->hashids->encode($transaksi->id_simpanan)])->with('sukses', 'Data berhasil di ubah');
     }
-    
 
-    $id = $ids[0];
-    
-    $transaksi = Transaksi::findOrFail($id);
+    public function delete($hashed_id)
+    {
+        $ids = $this->hashids->decode($hashed_id);
 
-    $id_simpanan = $transaksi->id_simpanan;
+        if (empty($ids)) {
+            abort(404);
+        }
 
-    $transaksi->delete();
 
-    $simpanan = Simpanan::find($id_simpanan);
-    if ($simpanan) {
-        $simpanan->saldo_simpanan -= $transaksi->setoran;
-        $simpanan->save();
+        $id = $ids[0];
+
+        $transaksi = Transaksi::findOrFail($id);
+
+        $id_simpanan = $transaksi->id_simpanan;
+
+        $transaksi->delete();
+
+        $simpanan = Simpanan::find($id_simpanan);
+        if ($simpanan) {
+            $simpanan->saldo_simpanan -= $transaksi->setoran;
+            $simpanan->save();
+        }
+
+        return redirect()->route('show.detail', ['hashed_id' => $this->hashids->encode($id_simpanan)])->with('sukses', 'Transaksi berhasil dihapus');
     }
-    
-    return redirect()->route('show.detail', ['hashed_id' => $this->hashids->encode($id_simpanan)])->with('sukses', 'Transaksi berhasil dihapus');
-}
 }

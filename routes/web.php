@@ -19,5 +19,6 @@ Route::middleware(['authmiddleware'])->group(function () {
 
     Route::post('/transaksi/create/{hashed_id}', [TransaksiController::class, 'create'])->name('transaksi.create');
     Route::get('/transaksi/pdf/{hashed_id}', [TransaksiController::class, 'pdf'])->name('transaksi.pdf');
+    Route::put('/transaksi/update/{hashed_id}', [TransaksiController::class, 'update'])->name('update.transaksi');
     Route::delete('/transaksi/{hashed_id}', [TransaksiController::class, 'delete'])->name('transaksi.destroy');
 });

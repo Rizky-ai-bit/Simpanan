@@ -82,11 +82,9 @@
                                         <td>{{ $t->tgl }}</td>
                                         <td class="d-flex gap-1 justify-content-center align-items-center">
                                             <button class="btn btn-info btn-sm edit-btn" data-bs-toggle="modal"
-                                                data-bs-target="#editModal" 
-                                                data-id="{{ $t->hashed_id }}"
+                                                data-bs-target="#editModal" data-id="{{ $t->hashed_id }}"
                                                 data-jenis-simpanan="{{ $t->jenis_simpanan }}"
-                                                data-setoran="{{ $t->setoran }}" 
-                                                data-tanggal="{{ $t->tanggal }}">
+                                                data-setoran="{{ $t->setoran }}" data-tanggal="{{ $t->tgl }}">
                                                 <i class="bi bi-pen"></i>
                                             </button>
                                             <form class="deleteform"
@@ -137,25 +135,24 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
-                                <input type="hidden" name="id_simpanan" value="{{ $simpanan->id }}">
+                                <input type="hidden" name="id_simpanan">
                                 <div class="modal-body">
                                     <div class="row g-2">
                                         <div class="col mb-0">
                                             <label for="jenis_simpanan">Jenis Simpanan</label>
-                                            <input type="text" name="jenis_simpanan" value=""
-                                                class="form-control" placeholder="Jenis Simpanan" required>
+                                            <input type="text" name="jenis_simpanan" class="form-control"
+                                                placeholder="Jenis Simpanan" required>
                                         </div>
                                     </div>
                                     <div class="row g-2">
                                         <div class="col mb-0">
                                             <label for="tanggal">Tanggal</label>
-                                            <input type="date" name="tgl" value="" class="form-control"
-                                                required>
+                                            <input type="date" name="tgl" class="form-control" required>
                                         </div>
                                         <div class="col mb-0">
-                                            <label for="unit">Jumlah Setoran</label>
-                                            <input type="number" name="setoran" value="" class="form-control"
-                                                placeholder="Jumlah setoran" required>
+                                            <label for="tgl"> Jumlah Setoran</label>
+                                            <input type="number" name="setoran" class="form-control"
+                                                placeholder="Jumlah Setoran" required>
                                         </div>
                                     </div>
                                 </div>
@@ -193,15 +190,14 @@
 
                                     <div class="row g-2 ">
                                         <div class="col">
-
-                                            <label for="edit_setoran" class="form-label">Jumlah Setor</label>
+                                            <label for="edit_setoran" class="form-label">Jumlah Setoran</label>
                                             <input type="text" name="setoran" id="edit_setoran"
                                                 class="form-control" placeholder="Input Jumlah Simpanan" required>
                                         </div>
                                         <div class="col">
-                                            <label for="edit_tanggal" class="form-label">Tanggal</label>
-                                            <input type="date" name="tanggal" id="edit_tanggal"
-                                                class="form-control" placeholder="Input Jumlah setoran" required>
+                                            <label for="edit_tgl" class="form-label">Tanggal</label>
+                                            <input type="date" name="tgl" id="edit_tgl" class="form-control"
+                                                placeholder="Input Jumlah setoran" required>
                                         </div>
                                     </div>
                                 </div>
@@ -250,24 +246,24 @@
     <script src="{{ asset('assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.0/dist/sweetalert2.all.min.js"></script>
 
-    <!-- Main JS File -->           
+    <!-- Main JS File -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $(document).on('click', '.btn-edit', function() {
-                const hashedId      = $(this).data('id');
-                const jeniSimpanan  = $(this).data('jenis-simpanan');
-                const jumlahSetor   = $(this).data('setoran');
-                const tanggal       = $(this).data('tanggal');
+            $(document).on('click', '.edit-btn', function() {
+                const hashedId = $(this).data('id');
+                const jenisSimpanan = $(this).data('jenis-simpanan');
+                const setoran = $(this).data('setoran');
+                const tanggal = $(this).data('tanggal');
 
-                $('#formEdit').attr('action', '');
+                $('#formEdit').attr('action', `/transaksi/update/${hashedId}`);
 
                 $('#edit_id').val(hashedId);
-                $('#edit_jenis_simpanan').val(jeniSimpanan);
-                $('#edit_setoran').val(jumlahSetor);
-                $('#tanggal').val(tanggal);
+                $('#edit_jenis_simpanan').val(jenisSimpanan);
+                $('#edit_setoran').val(setoran);
+                $('#edit_tgl').val(tanggal);
 
-                $('#modal').modal('show');
+                $('#editModal').modal('show');
             });
         });
     </script>
