@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\JenisSimpananController;
 use App\Http\Controllers\SimpananController;
 use App\Http\Controllers\TransaksiController;
+use App\Models\Jenis_simpanan;
 
 Route::get('/', [AuthController::class, 'index'])->name('login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -21,4 +23,6 @@ Route::middleware(['authmiddleware'])->group(function () {
     Route::get('/transaksi/pdf/{hashed_id}', [TransaksiController::class, 'pdf'])->name('transaksi.pdf');
     Route::put('/transaksi/update/{hashed_id}', [TransaksiController::class, 'update'])->name('update.transaksi');
     Route::delete('/transaksi/{hashed_id}', [TransaksiController::class, 'delete'])->name('transaksi.destroy');
+
+    Route::get('/jenis_simpanan', [JenisSimpananController::class, 'index'])->name('jenis');
 });

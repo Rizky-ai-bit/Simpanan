@@ -59,30 +59,12 @@
 
     <main class="main">
 
-        <!-- Hero Section -->
-        <section id="hero" class="hero section">
-
-            <div class="container">
-                <div class="row gy-4">
-                    <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
-                        <h1>Selamat Datang Di Aplikasi Kami</h1>
-                        <p>Kami Dari Koprasi Jasa Marga Palikanci</p>
-                    </div>
-                    <div class="col-lg-6 order-1 order-lg-2 hero-img">
-                        <img src="{{ asset('assets/img/hero-img.png') }}" class="img-fluid animated" alt="">
-                    </div>
-                </div>
-            </div>
-
-        </section><!-- /Hero Section -->
-
         <section id="data" class="hero section">
 
             <div class="container">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h3 class="card-title text-center mb-0 flex-grow-1">Daftar Tabungan</h3>
-                         <button onclick="location.href='{{ route('jenis') }}'" class="btn btn-primary m-2">jenis simpanan</button>
+                        <h3 class="card-title text-center mb-0 flex-grow-1">Jenis simpanan</h3>
                         <button class="btn btn-outline-primary" style="border-radius: 50%; font-size: 20px;"
                             data-bs-toggle="modal" data-bs-target="#addModal"><i class="bi bi-plus"></i></button>
                     </div>
@@ -99,26 +81,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php
-                                    $no = 1;
-                                @endphp
-                                @forelse ($simpanan as $s)
                                     <tr>
-                                        <td>{{ $no++ }}</td>
-                                        <td>{{ $s->nomor_anggota }}</td>
-                                        <td>{{ $s->nama }}</td>
-                                        <td>{{ $s->unit }}</td>
-                                        <td>{{ $s->no_hp }}</td>
+                                        <td>$no++</td>
+                                        <td>nomor_anggota</td>
+                                        <td>nama</td>
+                                        <td>unit</td>
+                                        <td></td>
                                         <td class="d-flex gap-1 justify-content-center align-items-center">
-                                            <a href="{{ route('show.detail', $s->hashed_id) }}"
+                                            <a href=""
                                                 class="btn btn-success btn-sm"><i class="bi bi-search"></i></a>
                                             <button class="btn btn-info btn-sm btn-edit" data-bs-toggle="modal"
-                                                data-bs-target="#editModal" data-id="{{ $s->hashed_id }}"
-                                                data-nomor-anggota="{{ $s->nomor_anggota }}"
-                                                data-nama="{{ $s->nama }}" data-unit="{{ $s->unit }}"
-                                                data-no-hp="{{ $s->no_hp }}"><i class="bi bi-pen"></i></button>
+                                                data-bs-target="#editModal" data-id=""
+                                                data-nomor-anggota=""
+                                                data-nama="" data-unit=""
+                                                data-no-hp=""><i class="bi bi-pen"></i></button>
                                             <form class="deleteform"
-                                                action="{{ route('simpanan.destroy', $s->hashed_id) }}" method="POST">
+                                                action="" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger btn-sm"><i
@@ -126,20 +104,21 @@
                                             </form>
                                         </td>
                                     </tr>
-                                @empty
+                       
                                     <tr>
                                         <td colspan="6" class="text-center">Tidak ada data tabungan.</td>
                                     </tr>
-                                @endforelse
+                               
                             </tbody>
                         </table>
+                        <button onclick="location.href='{{ route('simpan.index') }}'" class="btn btn-secondary">kembali</button>
                     </div>
                 </div>
             </div>
 
             <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
-                    <form action="{{ route('create_simpanan') }}" method="post" accept-charset="utf-8">
+                    <form action="" method="post" accept-charset="utf-8">
                         @csrf
 
                         <div class="modal-content">
@@ -182,7 +161,7 @@
                 </div>
             </div>
 
-            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel"
+            {{-- <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
                     <form id="formEdit" action="" method="POST">
@@ -231,7 +210,7 @@
                         </div>
                     </form>
                 </div>
-            </div>
+            </div> --}}
 
         </section>
 
@@ -280,7 +259,7 @@
                 const unit = $(this).data('unit');
                 const noHp = $(this).data('no-hp');
 
-                $('#formEdit').attr('action', `/simpanan/${hashedId}`);
+                $('#formEdit').attr();
 
                 $('#edit_id').val(hashedId);
                 $('#edit_nama').val(nama);
