@@ -82,7 +82,7 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h3 class="card-title text-center mb-0 flex-grow-1">Daftar Tabungan</h3>
-                         <button onclick="location.href='{{ route('jenis') }}'" class="btn btn-primary m-2">jenis simpanan</button>
+                         <button onclick="location.href='{{ route('jenis.simpanan') }}'" class="btn btn-primary m-2">jenis simpanan</button>
                         <button class="btn btn-outline-primary" style="border-radius: 50%; font-size: 20px;"
                             data-bs-toggle="modal" data-bs-target="#addModal"><i class="bi bi-plus"></i></button>
                     </div>

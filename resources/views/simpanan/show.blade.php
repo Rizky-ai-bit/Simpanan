@@ -76,8 +76,8 @@
                             <tbody>
                                 @forelse ($simpanan->transaksi as $t)
                                     <tr>
-                                        <td>{{ sprintf('%06d', $loop->iteration) }}</td>
-                                        <td>{{ $t->jenis_simpanan }}</td>
+                                        <td>{{ sprintf('%02d', $loop->iteration) }}</td>
+                                        <td>{{ $t->jenisSimpanan->jenis }}</td>
                                         <td>{{ 'Rp. ' . number_format($t->setoran, 0, ',', '.') }}</td>
                                         <td>{{ $t->tgl }}</td>
                                         <td class="d-flex gap-1 justify-content-center align-items-center">
@@ -108,21 +108,13 @@
                             <a href="{{ route('simpan.index') }}" type="button" class="btn btn-secondary">Kembali</a>
 
                             <div class="d-flex flex-column gap-1 align-items-end">
-                                <h7>Simpanan Pokok
-                                    <span class="text-success fw-bold">
-                                        : {{ 'Rp. ' . number_format($totalSetoran, 0, ',', '.') }}
-                                    </span>
-                                </h7>
-                                <h7>Simpanan Wajib
-                                    <span class="text-success fw-bold">
-                                        : {{ 'Rp. ' . number_format($totalSetoran, 0, ',', '.') }}
-                                    </span>
-                                </h7>
-                                <h7>Simpanan Sukarela
-                                    <span class="text-success fw-bold">
-                                        : {{ 'Rp. ' . number_format($totalSetoran, 0, ',', '.') }}
-                                    </span>
-                                </h7>
+                                @foreach ($totalJenisSimpanan as $namaJenis => $total)
+                                    <h7>{{ $namaJenis }}
+                                        <span class="text-success fw-bold">
+                                            : {{ 'Rp. ' . number_format($total, 0, ',', '.') }}
+                                        </span>
+                                    </h7>
+                                @endforeach
                                 <h7>Total Simpanan
                                     <span class="text-success fw-bold">
                                         : {{ 'Rp. ' . number_format($totalSetoran, 0, ',', '.') }}
@@ -153,16 +145,16 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
-                                <input type="hidden" name="id_simpanan">
+                                <input type="hidden" name="id_simpanan" value="{{ $simpanan->id }}">
                                 <div class="modal-body">
-                                    <input type="hidden" name="" value="">
                                     <div class="form-group mb-2">
                                         <label>Jenis Simpanan</label>
-                                        <select name="" class="form-select" required>
+                                        <select name="jenis_simpanan_id" class="form-select" required>
                                             <option value="" selected disabled>Pilih Simpanan</option>
-                                            <option>Simpanan Sukarela</option>
-                                            <option>Simpanan Wajib</option>
-                                            <option>Simpanan Pokok</option>
+                                            @foreach ($daftarJeniSimpanan as $j)
+                                                <option value="{{ $j->id }}">{{ $j->jenis }}
+                                                </option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="row g-2">
@@ -277,7 +269,9 @@
                 const setoran = $(this).data('setoran');
                 const tanggal = $(this).data('tanggal');
 
-                $('#formEdit').attr('action', /transaksi/update/${hashedId});
+                $('#formEdit').attr('action', /transaksi/update / $ {
+                    hashedId
+                });
 
                 $('#edit_id').val(hashedId);
                 $('#edit_jenis_simpanan').val(jenisSimpanan);

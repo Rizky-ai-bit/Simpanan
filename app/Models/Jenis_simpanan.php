@@ -13,4 +13,8 @@ class Jenis_simpanan extends Model
     protected $fillable = [
         'jenis'
     ];
+
+    public function transaksi(){
+        return $this->hasMany(Transaksi::class, 'jenis_simpanan_id', 'id');
+    }
 }

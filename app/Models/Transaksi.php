@@ -11,7 +11,7 @@ class Transaksi extends Model
 
     protected $table = 'transaksi'; 
     protected $fillable = [
-        'jenis_simpanan',
+        'jenis_simpanan_id',
         'id_simpanan',
         'setoran',
         'tgl',
@@ -21,4 +21,8 @@ class Transaksi extends Model
     {
         return $this->belongsTo(Simpanan::class, 'id_simpanan', 'id');
     }
+
+    public function jenisSimpanan(){
+        return $this->belongsTo(Jenis_simpanan::class, 'jenis_simpanan_id', 'id');
+    }   
 }

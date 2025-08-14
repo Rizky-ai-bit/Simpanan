@@ -59,12 +59,29 @@
 
     <main class="main">
 
+        <!-- Hero Section -->
+        <section id="hero" class="hero section">
+
+            <div class="container">
+                <div class="row gy-4">
+                    <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
+                        <h1>Selamat Datang Di Aplikasi Kami</h1>
+                        <p>Kami Dari Koprasi Jasa Marga Palikanci</p>
+                    </div>
+                    <div class="col-lg-6 order-1 order-lg-2 hero-img">
+                        <img src="{{ asset('assets/img/hero-img.png') }}" class="img-fluid animated" alt="">
+                    </div>
+                </div>
+            </div>
+
+        </section><!-- /Hero Section -->
+
         <section id="data" class="hero section">
 
             <div class="container">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h3 class="card-title text-center mb-0 flex-grow-1">Jenis simpanan</h3>
+                        <h3 class="card-title text-center mb-0 flex-grow-1">Jenis Simpanan</h3>
                         <button class="btn btn-outline-primary" style="border-radius: 50%; font-size: 20px;"
                             data-bs-toggle="modal" data-bs-target="#addModal"><i class="bi bi-plus"></i></button>
                     </div>
@@ -72,31 +89,23 @@
                         <table class="table datatable" id="myDataTable">
                             <thead>
                                 <tr>
-                                    <th>No Urut</th>
-                                    <th>No Anggota</th>
-                                    <th>Nama</th>
-                                    <th>Unit</th>
-                                    <th>No Hp</th>
+                                    <th>No</th>
+                                    <th>Jenis Simpanan</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @forelse ($jenis as $j)
                                     <tr>
-                                        <td>$no++</td>
-                                        <td>nomor_anggota</td>
-                                        <td>nama</td>
-                                        <td>unit</td>
-                                        <td></td>
+                                        <td>{{ sprintf('%02d', $loop->iteration) }}</td>
+                                        <td>{{ $j->jenis }}</td>
                                         <td class="d-flex gap-1 justify-content-center align-items-center">
-                                            <a href=""
-                                                class="btn btn-success btn-sm"><i class="bi bi-search"></i></a>
                                             <button class="btn btn-info btn-sm btn-edit" data-bs-toggle="modal"
-                                                data-bs-target="#editModal" data-id=""
-                                                data-nomor-anggota=""
-                                                data-nama="" data-unit=""
-                                                data-no-hp=""><i class="bi bi-pen"></i></button>
+                                                data-bs-target="#editModal" 
+                                                data-id="{{ $j->hashed_id }}"
+                                                data-jenis="{{ $j->jenis }}"><i class="bi bi-pen"></i></button>
                                             <form class="deleteform"
-                                                action="" method="POST">
+                                                action="{{ route('jenis.delete', $j->hashed_id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger btn-sm"><i
@@ -104,51 +113,33 @@
                                             </form>
                                         </td>
                                     </tr>
-                       
+                                    @empty
                                     <tr>
-                                        <td colspan="6" class="text-center">Tidak ada data tabungan.</td>
+                                        <td colspan="5" class="text-center">Tidak ada data transaksi.</td>
                                     </tr>
-                               
-                            </tbody>
-                        </table>
-                        <button onclick="location.href='{{ route('simpan.index') }}'" class="btn btn-secondary">kembali</button>
+                                @endforelse
+                                </tbody>
+                            </table>
+                            <button onclick="location.href='{{ route('simpan.index') }}'" class="btn btn-secondary">Kembali</button>
                     </div>
                 </div>
             </div>
 
             <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
-                    <form action="" method="post" accept-charset="utf-8">
+                    <form action="{{ route('jenis.create') }}" method="post" accept-charset="utf-8">
                         @csrf
-
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="addModalLabel">Buat Simpanan Baru</h5>
+                                <h5 class="modal-title" id="addModalLabel">Tambah Simpanan Baru</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label for="nama">Nama</label>
-                                    <input type="text" name="nama" value="{{ old('nama') }}"
-                                        class="form-control" placeholder="Nama lengkap anggota" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="nomor_anggota">Nomor Aggota</label>
-                                    <input type="text" name="nomor_anggota" value="{{ old('nomor_anggota') }}"
-                                        class="form-control" placeholder="Nomor anggota" required>
-                                </div>
-                                <div class="row g-2">
-                                    <div class="col mb-0">
-                                        <label for="no_hp">No Hp</label>
-                                        <input type="text" name="no_hp" value="{{ old('no_hp') }}"
-                                            class="form-control" placeholder="Nomor handphone aktif" required>
-                                    </div>
-                                    <div class="col mb-0">
-                                        <label for="unit">Unit</label>
-                                        <input type="text" name="unit" value="{{ old('unit') }}"
-                                            class="form-control" placeholder="Unit divisi" required>
-                                    </div>
+                                    <label for="jenis">Jenis Simpanan</label>
+                                    <input type="text" name="jenis" value=""
+                                        class="form-control" placeholder="Masukkan Jenis Simpanan" required>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -161,7 +152,7 @@
                 </div>
             </div>
 
-            {{-- <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel"
+            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
                     <form id="formEdit" action="" method="POST">
@@ -169,37 +160,15 @@
                         @method('PUT')
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="editModalLabel">Edit Tabungan</h5>
+                                <h5 class="modal-title" id="editModalLabel">Edit Jenis Simpanan</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-
                                 <input type="hidden" name="id" id="edit_id">
-
                                 <div class="form-group">
-                                    <label for="edit_nama" class="form-label">Nama</label>
-                                    <input type="text" name="nama" id="edit_nama" class="form-control"
-                                        placeholder="Input nama lengkap" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="edit_nomor_anggota" class="form-label">Nomor Anggota</label>
-                                    <input type="text" name="nomor_anggota" id="edit_nomor_anggota"
-                                        class="form-control" placeholder="Input nomor anggota" required>
-                                </div>
-
-                                <div class="row g-2">
-                                    <div class="col">
-                                        <label for="edit_unit" class="form-label">Unit</label>
-                                        <input type="text" name="unit" id="edit_unit" class="form-control"
-                                            placeholder="Input unit/divisi" required>
-                                    </div>
-                                    <div class="col">
-                                        <label for="edit_no_hp" class="form-label">No Hp</label>
-                                        <input type="text" name="no_hp" id="edit_no_hp" class="form-control"
-                                            placeholder="Input nomor aktif" required>
-                                    </div>
+                                    <label for="edit_jenis" class="form-label">Jenis Simpanan</label>
+                                    <input type="text" name="jenis" id="edit_jenis" class="form-control" required>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -210,7 +179,7 @@
                         </div>
                     </form>
                 </div>
-            </div> --}}
+            </div>
 
         </section>
 
@@ -254,18 +223,12 @@
         $(document).ready(function() {
             $(document).on('click', '.btn-edit', function() {
                 const hashedId = $(this).data('id');
-                const nama = $(this).data('nama');
-                const nomorAnggota = $(this).data('nomor-anggota');
-                const unit = $(this).data('unit');
-                const noHp = $(this).data('no-hp');
+                const jenis = $(this).data('jenis');
 
-                $('#formEdit').attr();
+                $('#formEdit').attr('action', /jenis-simpanan/${hashedId});
 
                 $('#edit_id').val(hashedId);
-                $('#edit_nama').val(nama);
-                $('#edit_nomor_anggota').val(nomorAnggota);
-                $('#edit_unit').val(unit);
-                $('#edit_no_hp').val(noHp);
+                $('#edit_jenis').val(jenis);
 
                 $('#editModal').modal('show');
             });
