@@ -225,7 +225,7 @@
                 const hashedId = $(this).data('id');
                 const jenis = $(this).data('jenis');
 
-                $('#formEdit').attr('action', /jenis-simpanan/${hashedId});
+                $('#formEdit').attr('action', `/jenis-simpanan/${hashedId}`);
 
                 $('#edit_id').val(hashedId);
                 $('#edit_jenis').val(jenis);

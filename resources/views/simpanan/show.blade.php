@@ -82,9 +82,11 @@
                                         <td>{{ $t->tgl }}</td>
                                         <td class="d-flex gap-1 justify-content-center align-items-center">
                                             <button class="btn btn-info btn-sm edit-btn" data-bs-toggle="modal"
-                                                data-bs-target="#editModal" data-id="{{ $t->hashed_id }}"
-                                                data-jenis-simpanan="{{ $t->jenis_simpanan }}"
-                                                data-setoran="{{ $t->setoran }}" data-tanggal="{{ $t->tgl }}">
+                                                data-bs-target="#editModal" 
+                                                data-id="{{ $t->hashed_id }}"
+                                                data-jenis-simpanan="{{ $t->jenisSimpanan->jenis }}"
+                                                data-setoran="{{ $t->setoran }}" 
+                                                data-tanggal="{{ $t->tgl }}">
                                                 <i class="bi bi-pen"></i>
                                             </button>
                                             <form class="deleteform"
@@ -269,9 +271,7 @@
                 const setoran = $(this).data('setoran');
                 const tanggal = $(this).data('tanggal');
 
-                $('#formEdit').attr('action', /transaksi/update / $ {
-                    hashedId
-                });
+                $('#formEdit').attr('action', '/transaksi/update / ${hashedId}');
 
                 $('#edit_id').val(hashedId);
                 $('#edit_jenis_simpanan').val(jenisSimpanan);

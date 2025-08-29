@@ -45,7 +45,7 @@ class SimpananController extends Controller
             'nama'          => $request->nama,
             'nomor_anggota' => $request->nomor_anggota,
             'unit'          => $request->unit,
-            'no_hp'          => $request->no_hp
+            'no_hp'         => $request->no_hp
         ]);
 
         return redirect()->route('simpan.index')

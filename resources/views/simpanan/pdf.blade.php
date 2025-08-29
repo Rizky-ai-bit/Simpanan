@@ -257,8 +257,8 @@
                     @forelse ($simpanan->transaksi as $transaksi)
                         <tr class="stripe-row">
                             <td>{{ sprintf('%06d', $loop->iteration) }}</td>
-                            <td class="text-left">{{ $transaksi->jenis_simpanan }}</td>
-                            <td class="text-right amount">{{ 'Rp. ' . number_format($transaksi->setoran, 0, ',', '.') }}
+                            <td class="text-center">{{ $transaksi->jenisSimpanan->jenis }}</td>
+                            <td class="text-center amount">{{ 'Rp. ' . number_format($transaksi->setoran, 0, ',', '.') }}
                             </td>
                             <td>{{ $transaksi->tgl }}</td>
                         </tr>
@@ -279,7 +279,7 @@
         </div>
 
         <div class="footer">
-            <p><strong>Koperasi Karyawan JMB</strong></p>
+            <p><strong>Koperasi JMB Palikanci</strong></p>
             <p>Jl. Raya Cirebon Kuningan KM. 8, Ciperna, Talun, Ciperna, Kec. Talun, Kabupaten Cirebon, Jawa Barat 45171
             </p>
             <p>Dicetak pada: <span id="footer-date"></span>{{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</p>
